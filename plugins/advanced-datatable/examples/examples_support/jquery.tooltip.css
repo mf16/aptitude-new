@@ -1,0 +1,12 @@
+#tooltip{
+	position: absolute;
+	display: none;
+	border: 1px solid #3E3E3F;
+	background: #BDCDFF;
+	padding: 5px 20px;
+	color: #3E3E3F;
+
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
