@@ -44,7 +44,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-md-12 col-lg-6 text-right"><div class="btn btn-primary mg-r-md addContentGroup">+ Add More Content</div><div class="btn btn-default">Preview Section</div></div>
+        <div class="col-md-12 col-lg-6 text-right"><div class="btn btn-primary mg-r-md addContentGroup" id="addContentGroup">+ Add More Content</div><div class="btn btn-default">Preview Section</div></div>
       </div>
       <div class="mg-b-md hidden-lg"></div>
       <div class="panel-group mg-b-20 sortable" id="accordion">

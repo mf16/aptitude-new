@@ -44,16 +44,70 @@ var accordionOpen = false;
 			activeGroupid = $(this).data('groupid');
 			activeContentid = $('#collapseGroup_'+activeGroupid+'>.panel-body>.row>.contentPreview>.content').data('contentid');
 			$activeElement = $('#content_'+activeContentid);
-			activeHTML = $activeElement.html();
-			activeContentType = $activeElement.data('content-type');
+			activeHTML = $('#content_'+activeContentid+'>.contentContainer').html();
+			activeContentType = $('#content_'+activeContentid+'>.panel-body>.row>.contentPreview').data('content-type');
 		}
 	});
 
 
 
-$('body').on('click', '.addContentGroup', function() {
+	/*<div class="panel-collapse collapse" id="collapseGroup_2" style="height: 0px;">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-2 col-md-3 addContentNav niceScroll">
+						<section class="col-md-12 addRichTextEditor popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Text and Images" data-placement="right" data-trigger="hover">
+							Text and Images
+						</section>
+
+						<section class="col-md-12 addVideo popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Video" data-placement="right" data-trigger="hover">
+							Video
+						</section>
+
+						<section class="col-md-12 addDefinition popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Definition" data-placement="right" data-trigger="hover">
+							Definition
+						</section>
+
+						<section class="col-md-12 addTabs popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Tabs" data-placement="right" data-trigger="hover">
+							Tabs
+						</section>
+
+						<section class="col-md-12 addTable popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Table" data-placement="right" data-trigger="hover">
+							Table
+						</section>
+
+						<section class="col-md-12 addAccordian popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Accordian" data-placement="right" data-trigger="hover">
+							Accordian
+						</section>
+
+						<section class="col-md-12 addTimeline popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Timeline" data-placement="right" data-trigger="hover">
+							Timeline
+						</section>
+
+						<section class="col-md-12 addList popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="List" data-placement="right" data-trigger="hover">
+							List
+						</section>
+
+						<section class="col-md-12 addTooltip popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Popover" data-placement="right" data-trigger="hover">
+							Tooltip
+						</section>
+					</div>
+
+					<div class="col-md-9 col-lg-10 contentPreview">
+						<h3 class="no-mg-t mg-b-lg">Select an element from the list</h3>
+					</div>
+				</div>
+			</div>
+		</div>*/
+
+$('body').on('click', '#addContentGroup', function() {
 	//Create new with toolbar, empty content. Assign groupid and sectionid
-	$('.sortable').prepend('<div class="panel panel-default"><a class="accordion-toggle collapsed" data-groupid="2" data-toggle="collapse" data-parent="#accordion" href="#collapseGroup_2" aria-expanded="false"><div class="panel-heading"><h4 class="panel-title"><span class="drag-marker"><i></i></span> Section Title #2 <i class="fa fa-trash-o trashGroupIcon pull-right" data-groupid="2"></i><span class="label label-primary pull-right"><i class="fa fa-tag"></i> Secondary Tag</span><span class="label label-primary pull-right primaryTag"><i class="fa fa-tag"></i> Primary Tag</span> </h4> </div></a> <div id="collapseGroup_2" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;" > <div class="panel-body"> <div class="row"> <div class="col-lg-2 col-md-3 addContentNav niceScroll"><section class="col-md-12 addRichTextEditor popovers" data-original-title="Text and Images" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Text and Images</section> <section class="col-md-12 addVideo popovers" data-original-title="Video" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Video</section> <section class="col-md-12 addDefinition popovers" data-original-title="Definition" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Definition</section> <section class="col-md-12 addTabs popovers" data-original-title="Tabs" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Tabs</section><section class="col-md-12 addTable popovers" data-original-title="Table" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Table</section><section class="col-md-12 addAccordian popovers" data-original-title="Accordian" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Accordian</section><section class="col-md-12 addTimeline popovers" data-original-title="Timeline" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Timeline</section><section class="col-md-12 addList popovers" data-original-title="List" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">List</section><section class="col-md-12 addTooltip popovers" data-original-title="Popover" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Tooltip</section> </div><div class="col-md-9 col-lg-10 contentPreview"><h3 class="no-mg-t mg-b-lg">Select an element from the list</h3></div></div></div></div></div>');
+	$(this).attr('disabled', 'disabled');
+	$('.sortable').prepend('<div class="panel panel-default"><a class="accordion-toggle collapsed" data-groupid="2" data-parent="#accordion" data-toggle="collapse" href="#collapseGroup_2"><div class="panel-heading"><div class="col-md-7"><input class="groupTitle form-control" id="groupTitle_1" placeholder="Content title here..." type="text"></div><div class="col-md-4 text-right"><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" placeholder="Primary tag" type="text"></article><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" placeholder="Secondary tag" type="text"></article></div><div class="btn btn-default pull-right saveGroup" data-save-type="text">Save</div></div></a></div>');
+});
+
+
+$('body').on('click', '.saveGroup', function() {
+	$('#addContentGroup').removeAttr('disabled');
 });
 
 
@@ -158,7 +212,7 @@ $('body').on('click', '.addContentGroup', function() {
 		else{
 			activeHTML = '<h3 class="no-mg-t mg-b-lg">Select an element from the list</h3>';
 		}
-		$activeElement.html('<div class="row mg-b-md"><div class="col-md-8"><input type="text" id="groupTitle_1" class="groupTitle form-control" placeholder="Content title here..."></div><div class="col-md-4 text-right"><div class="btn btn-default pull-right saveContent">Save</div></div></div><textarea class="wysihtml5 form-control" placeholder="Enter text here..." rows="12"></textarea><div class="clearfix">&nbsp;</div><div class="row inputTagsRow"> <article class="col-md-4 col-lg-3 iconic-input"> <i class="fa fa-tag"></i> <input type="text" placeholder="Primary tag" class="form-control"> </article> <article class="col-md-4 col-lg-3 iconic-input"> <i class="fa fa-tag"></i> <input type="text" placeholder="Secondary tag" class="form-control"> </article> </div>');
+		$activeElement.html('<textarea class="wysihtml5 form-control" placeholder="Enter text here..." rows="12"></textarea><div class="clearfix">&nbsp;</div><div class="row inputTagsRow"></div>');
 		$('.wysihtml5').wysihtml5();
 		checkHeight();
 	});
@@ -238,7 +292,7 @@ $('body').on('click', '.addContentGroup', function() {
 		else{
 			activeHTML = '<h3 class="no-mg-t mg-b-lg">Select an element from the list</h3>';
 		}
-		$activeElement.html('<h3 class="no-mg-t mg-b-lg">Definition </i><div class="btn btn-default pull-right">Save</div></h3><!--timeline start--> <div class="col-lg-10 col-md-112"><article class="col-md-4"> <section class="text-center"> <i class="fa fa-tag listIcon"></i><br>Test this setion </section> </article> <article class="col-md-4"> <section class="text-center"> <i class="fa fa-tag listIcon"></i><br>Test this setion </section> </article> <article class="col-md-4"> <section class="text-center"> <i class="fa fa-tag listIcon"></i><br>Test this setion </section></article>');
+		$activeElement.html('<h3 class="no-mg-t mg-b-lg">Definition </i><div class="btn btn-default pull-right">Save</div></h3><!--timeline start--> <div class="col-lg-10 col-md-112"><article class="col-md-4"> <section class="text-center"> <i class="fa fa-tag listIcon"></i><br>Test this setion </section> </article> <article class="col-md-4"> <section class="text-center"><i class="fa fa-tag listIcon"></i><br>Test this setion </section> </article> <article class="col-md-4"><section class="text-center"> <i class="fa fa-tag listIcon"></i><br>Test this setion </section></article>');
 		checkHeight();
 	});
 
@@ -271,12 +325,27 @@ $('body').on('click', '.addContentGroup', function() {
 */
 	$('body').on('click', '.saveContent', function() {
 		var contentToSave;
-		//Make sure text inside is not just a placeholder and save content
-		if (!$(".wysihtml5-sandbox").contents().find(".wysihtml5-editor").hasClass( "placeholder" )){
-			contentToSave = $(".wysihtml5-sandbox").contents().find(".wysihtml5-editor").html();
-			//$.ajax({url: , success:function(result){
-				$activeElement.html(contentToSave);
-			//}});
+		var saveType = $(this).data('save-type');
+		if(saveType == 'text'){
+			//Make sure text inside is not just a placeholder and save content
+			if (!$(".wysihtml5-sandbox").contents().find(".wysihtml5-editor").hasClass( "placeholder" )){
+				contentToSave = $(".wysihtml5-sandbox").contents().find(".wysihtml5-editor").html();
+				//$.ajax({url: , success:function(result){
+					$activeElement.html('<div class="contentContainer">'+contentToSave+'</div>');
+					$activeElement.prepend('<div class="row mg-b-md"><div class="col-md-8 contentTitle"><h3 class="no-mg-t mg-b-lg">Text</h3></div><div class="col-md-4 text-right"><div class="btn btn-default pull-right editContent" data-content-type="text">Edit</div></div></div>');
+					activeHTML = $('#content_'+activeContentid+'>.contentContainer').html();
+					activeContentType = 'text';
+				//}});
+			}
 		}
+	});
+
+	$('body').on('click', '.editContent', function() {
+		if(activeContentType == 'text'){
+			$activeElement.html('<div class="row mg-b-md"><div class="col-md-8"><h3 class="no-mg-t mg-b-lg">Text</h3></div><div class="col-md-4 text-right"><div class="btn btn-default pull-right saveContent" data-save-type="text">Save</div></div></div><textarea class="wysihtml5 form-control" rows="12">'+activeHTML+'</textarea><div class="clearfix">&nbsp;</div><div class="row inputTagsRow"></div>');
+			$('.wysihtml5').wysihtml5();
+			checkHeight();
+		}
+		elementActive = true;
 	});
 

@@ -163,16 +163,6 @@ ul {
     color: #FFFFFF;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary,
-.btn-primary.disabled,
-.btn-primary[disabled],
-.btn-primary.disabled.active,
-.btn-primary.active[disabled]{
-    background-color: #39b2a9;
-    border-color: #39b2a9;
-    color: #FFFFFF;
-}
-
 .btn-success {
     background-color: #78CD51;
     border-color: #78CD51;

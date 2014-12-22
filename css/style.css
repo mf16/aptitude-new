@@ -6427,6 +6427,13 @@ a.guest-on i {
     color: #3E3E3F;
 }
 
+.saveGroup{
+    margin-bottom: 9px;
+    padding: 8px 25px;
+}
+.btn[disabled]{
+    opacity: .5;
+}
 /*Sticky Footer*/
     #container {
         min-height: 100%;
