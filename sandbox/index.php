@@ -48,7 +48,7 @@
       </div>
       <div class="mg-b-md hidden-lg"></div>
       <div class="panel-group mg-b-20 sortable" id="accordion">
-        <div class="panel panel-default">
+        <div class="panel panel-default accordionPanel">
           <a class="accordion-toggle collapsed" data-groupid="1" data-toggle="collapse" data-parent="#accordion" href="#collapseGroup_1" aria-expanded="false">
             <div class="panel-heading">
               <h4 class="panel-title">
@@ -74,8 +74,8 @@
                   <section class="col-md-12 addAccordion popovers" data-original-title="Accordion" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Accordion</section>
                   <section class="col-md-12 addTimeline popovers" data-original-title="Timeline" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Timeline</section>
                   <section class="col-md-12 addList popovers" data-original-title="List" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">List</section>
-                  <!--section class="col-md-12 addLink popovers" data-original-title="Link" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Link</section-->
-                  <!--section class="col-md-12 addTooltip popovers" data-original-title="Popover" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Tooltip</section-->
+                  <section class="col-md-12 addLink popovers" data-original-title="Link" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Link</section>
+                  <section class="col-md-12 addTooltip popovers" data-original-title="Popover" data-html="true" data-content="" data-container="body" data-placement="right" data-trigger="hover" data-delay="500">Tooltip</section>
                 </div>
                 <!--
                 THIS IS FOR MULTIPLE SECTIONS OF CONTENT ON ONE GROUP
@@ -89,6 +89,58 @@
                   <div class="content" id="content_1" data-empty="true" data-element-active="false" data-content-type="null" data-contentid="1">
                     <h3 class="no-mg-t mg-b-lg">Select an element from the list <!--<div class="btn btn-default pull-right">Save</div>--></h3>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- page end-->
+  </section>
+  <!--main content end-->
+
+  <?php include '../includes/rightSidebar.php';?>
+  <?php include '../includes/footer.php';?>
+  <link class="jsbin" href="/css/jquery-ui.css" rel="stylesheet" type="text/css" />
+  <script class="jsbin" src="/js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
+  <script type="text/javascript" src="/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+  <script type="text/javascript" src="/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+  <script type="text/javascript" src="/assets/data-tables/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="/assets/data-tables/DT_bootstrap.js"></script>
+  <script type="text/javascript" src="/assets/slick/slick.min.js"></script>
+  <script type="text/javascript" src="/js/editable-table.js"></script>
+  <script type="text/javascript" src="/sandbox/script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -412,28 +464,3 @@
                       JSXGraph for drawing a line or curve
                       AMCharts to draw a bar chart, a line chart, or pie
                   -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- page end-->
-  </section>
-  <!--main content end-->
-
-  <?php include '../includes/rightSidebar.php';?>
-  <?php include '../includes/footer.php';?>
-  <link class="jsbin" href="/css/jquery-ui.css" rel="stylesheet" type="text/css" />
-  <script class="jsbin" src="/js/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js"></script>
-  <script type="text/javascript" src="/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-  <script type="text/javascript" src="/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-  <script type="text/javascript" src="/assets/data-tables/jquery.dataTables.js"></script>
-  <script type="text/javascript" src="/assets/data-tables/DT_bootstrap.js"></script>
-  <script type="text/javascript" src="/assets/slick/slick.min.js"></script>
-  <script type="text/javascript" src="/js/editable-table.js"></script>
-  <script type="text/javascript" src="/sandbox/script.js"></script>
-</body>
-</html>

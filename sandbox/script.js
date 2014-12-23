@@ -15,12 +15,6 @@
 		accordionOpen - default is false
 */
 
-
-/*TODO-
-be able to remove content ->   '<i class="fa fa-trash-o trashSectionIcon pull-right" data-groupid="1">'
-
-*/
-
 var $activeElement;
 var activeHTML;
 var activeGroupid;
@@ -29,9 +23,9 @@ var activeContentType;
 var elementActive = false;
 var accordionOpen = false;
 
-	$('body').on('click', '.accordion-toggle', function() {
+	$('body').on('click', '.accordionPanel', function(e) {
 		//todo - check if active element is open (save, cancel, or delete changes)
-		if (activeGroupid == $(this).data('groupid')){
+		if ($(this).attr('aria-expanded') == 'true' || $(this).data('groupid') == undefined){
 			accordionOpen = false;
 			activeGroupid = null;
 			activeContentid = null;
@@ -49,65 +43,51 @@ var accordionOpen = false;
 		}
 	});
 
-
-
-	/*<div class="panel-collapse collapse" id="collapseGroup_2" style="height: 0px;">
-			<div class="panel-body">
-				<div class="row">
-					<div class="col-lg-2 col-md-3 addContentNav niceScroll">
-						<section class="col-md-12 addRichTextEditor popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Text and Images" data-placement="right" data-trigger="hover">
-							Text and Images
-						</section>
-
-						<section class="col-md-12 addVideo popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Video" data-placement="right" data-trigger="hover">
-							Video
-						</section>
-
-						<section class="col-md-12 addDefinition popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Definition" data-placement="right" data-trigger="hover">
-							Definition
-						</section>
-
-						<section class="col-md-12 addTabs popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Tabs" data-placement="right" data-trigger="hover">
-							Tabs
-						</section>
-
-						<section class="col-md-12 addTable popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Table" data-placement="right" data-trigger="hover">
-							Table
-						</section>
-
-						<section class="col-md-12 addAccordian popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Accordian" data-placement="right" data-trigger="hover">
-							Accordian
-						</section>
-
-						<section class="col-md-12 addTimeline popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Timeline" data-placement="right" data-trigger="hover">
-							Timeline
-						</section>
-
-						<section class="col-md-12 addList popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="List" data-placement="right" data-trigger="hover">
-							List
-						</section>
-
-						<section class="col-md-12 addTooltip popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Popover" data-placement="right" data-trigger="hover">
-							Tooltip
-						</section>
-					</div>
-
-					<div class="col-md-9 col-lg-10 contentPreview">
-						<h3 class="no-mg-t mg-b-lg">Select an element from the list</h3>
-					</div>
-				</div>
-			</div>
-		</div>*/
-
 $('body').on('click', '#addContentGroup', function() {
+	if(accordionOpen == true){
+		//check if accordion is open. Save, close, or cancel
+	}
 	//Create new with toolbar, empty content. Assign groupid and sectionid
 	$(this).attr('disabled', 'disabled');
-	$('.sortable').prepend('<div class="panel panel-default"><a class="accordion-toggle collapsed" data-groupid="2" data-parent="#accordion" data-toggle="collapse" href="#collapseGroup_2"><div class="panel-heading"><div class="col-md-7"><input class="groupTitle form-control" id="groupTitle_1" placeholder="Content title here..." type="text"></div><div class="col-md-4 text-right"><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" placeholder="Primary tag" type="text"></article><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" placeholder="Secondary tag" type="text"></article></div><div class="btn btn-default pull-right saveGroup" data-save-type="text">Save</div></div></a></div>');
+	$('.sortable').prepend('<div class="panel panel-default accordionPanel activeGroupAccordion"><a class="accordion-toggle collapsed" data-parent="#accordion" data-toggle="collapse"><div id="activeGroup" class="panel-heading"><div class="col-md-7"><input class="groupTitle form-control" id="groupTitle" placeholder="Content title here..." type="text"></div><div class="col-md-4 text-right"><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" id="primaryTag" placeholder="Primary tag" type="text"></article><article class="col-md-6 iconic-input"><i class="fa fa-tag"></i> <input class="form-control" id="secondaryTag" placeholder="Secondary tag" type="text"></article></div><div class="btn btn-default pull-right saveGroup" data-save-type="text">Save</div></div></a></div>');
 });
 
 
-$('body').on('click', '.saveGroup', function() {
-	$('#addContentGroup').removeAttr('disabled');
+$('body').on('click', '.saveGroup', function(e) {
+	e.stopPropagation();
+	var title = $('#groupTitle').val();
+	var primaryTag = $('#primaryTag').val();
+	var secondaryTag = $('#secondaryTag').val();
+	if($('#groupTitle').val() !== ''){
+		if($('#primaryTag').val() !== ''){
+			if($('#secondaryTag').val() !== ''){
+				//All info is filled out properly
+				$('#addContentGroup').removeAttr('disabled');
+				//todo - fetch groupid
+				//assign group id to element
+				var groupid = 5;
+				$('.activeGroupAccordion>a').attr('href', '#collapseGroup_'+groupid);
+				$('.activeGroupAccordion>a').attr('data-groupid', groupid);
+				$('#activeGroup').html(' <h4 class="panel-title"><span class="drag-marker"><i></i></span>'+title+'<i class="fa fa-trash-o trashGroupIcon pull-right" data-groupid="'+groupid+'"></i><span class="label label-primary pull-right"><i class="fa fa-tag"></i> '+secondaryTag+'</span><span class="label label-primary pull-right primaryTag"><i class="fa fa-tag"></i> '+primaryTag+'</span></h4>');
+
+				$('.activeGroupAccordion').append('<div class="panel-collapse collapse" id="collapseGroup_'+groupid+'" style="height: 0px;"><div class="panel-body"><div class="row"><div class="col-lg-2 col-md-3 addContentNav niceScroll"><section class="col-md-12 addRichTextEditor popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Text and Images" data-placement="right" data-trigger="hover">Text and Images</section><section class="col-md-12 addVideo popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Video" data-placement="right" data-trigger="hover">Video</section><section class="col-md-12 addDefinition popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Definition" data-placement="right" data-trigger="hover">Definition</section><section class="col-md-12 addTabs popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Tabs" data-placement="right" data-trigger="hover">Tabs</section><section class="col-md-12 addTable popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Table" data-placement="right" data-trigger="hover">Table</section><section class="col-md-12 addAccordian popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Accordian" data-placement="right" data-trigger="hover">Accordian</section><section class="col-md-12 addTimeline popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Timeline" data-placement="right" data-trigger="hover">Timeline</section><section class="col-md-12 addList popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="List" data-placement="right" data-trigger="hover">List</section><section class="col-md-12 addTooltip popovers" data-container="body" data-content="" data-delay="500" data-html="true" data-original-title="Popover" data-placement="right" data-trigger="hover">Tooltip</section></div><div class="col-md-9 col-lg-10 contentPreview"><div class="content" id="content_'+groupid+'" data-empty="true" data-element-active="false" data-content-type="null" data-contentid="'+groupid+'"><h3 class="no-mg-t mg-b-lg">Select an element from the list</h3></div></div></div></div></div>');
+				$('.activeGroupAccordion').removeClass('activeGroupAccordion');
+				$(".niceScroll").niceScroll({styler:"fb",cursorcolor:"#F79234", cursorwidth: '5', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+			}
+			else{
+				//Missing secondary tag
+				$('#secondaryTag').focus();
+			}
+		}
+		else{
+			//Missing primary tag
+			$('#primaryTag').focus();
+		}
+	}
+	else{
+		//Missing title
+		$('#groupTitle').focus();
+	}
 });
 
 
@@ -137,6 +117,7 @@ $('body').on('click', '.saveGroup', function() {
 	$('body').on('click', '.removeGroup', function() {
 		var targetid = $(this).data('target');
 		$('#collapseGroup_'+targetid).parent().remove();
+		//todo - make it save
 	});
 
 
@@ -147,38 +128,38 @@ $('body').on('click', '.saveGroup', function() {
 	On Page load
 */
 	jQuery(document).ready(function() {
-	//EditableTable.init();
-	$('.wysihtml5').wysihtml5();
-	$(".sortable").sortable({
-		handle: ".drag-marker",
-		axis: "y",
-		cursor: "move",
-		placeholder: 'ui-state-highlight',
-		start: function (e,ui){
-			$('.ui-state-highlight').css('height', $(ui.item).css('height'));
-			$('.ui-state-highlight').css('line-height', $(ui.item).css('height'));
-			$('.ui-state-highlight').css('width', $(ui.item).css('width'));
-	//$(ui.placeholder).slideUp();
-	},
-	change: function (e,ui){
-		$(ui.placeholder).hide().slideDown();
-	}
-	});
-	$(".sortable").disableSelection();
-	/*$('.horizontalCarousel').slick({
-	dots: true,
-	infinite: false,
-	speed: 300,
-	slidesToShow: 1,
-	adaptiveHeight: true,
-	accessibility: true,
-	arrows: false
-	});*/
+		//EditableTable.init();
+		$('.wysihtml5').wysihtml5();
+		$(".sortable").sortable({
+			handle: ".drag-marker",
+			axis: "y",
+			cursor: "move",
+			placeholder: 'ui-state-highlight',
+			start: function (e,ui){
+				$('.ui-state-highlight').css('height', $(ui.item).css('height'));
+				$('.ui-state-highlight').css('line-height', $(ui.item).css('height'));
+				$('.ui-state-highlight').css('width', $(ui.item).css('width'));
+		//$(ui.placeholder).slideUp();
+		},
+		change: function (e,ui){
+			$(ui.placeholder).hide().slideDown();
+		}
+		});
+		$(".sortable").disableSelection();
+		/*$('.horizontalCarousel').slick({
+		dots: true,
+		infinite: false,
+		speed: 300,
+		slidesToShow: 1,
+		adaptiveHeight: true,
+		accessibility: true,
+		arrows: false
+		});*/
 	});
 
 	$(window).load(function() { // makes sure the whole site is loaded
-	$('#status').fadeOut(); // will first fade out the loading animation
-	$('#preloader').delay(500).fadeOut(1000); // will fade out the white DIV that covers the website.
+		$('#status').fadeOut(); // will first fade out the loading animation
+		$('#preloader').delay(500).fadeOut(1000); // will fade out the white DIV that covers the website.
 	});
 
 	//Listen for keystrokes and clicking on adding content section for size changes in .contentPreview
@@ -270,7 +251,7 @@ $('body').on('click', '.saveGroup', function() {
 		else{
 			activeHTML = '<h3 class="no-mg-t mg-b-lg">Select an element from the list</h3>';
 		}
-		$activeElement.html('<h3 class="no-mg-t mg-b-lg">Definition <div class="btn btn-default pull-right">Save</div></h3><!--Acoridan - start--> <div class="panel-group mg-b-20" id="accordion_2"> <div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_1" aria-expanded="false"> Collapsible Group Item #1 </a> </h4> </div><div id="collapse_1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div><div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_2" aria-expanded="false"> Collapsible Group Item #2 </a> </h4> </div><div id="collapse_2" class="panel-collapse collapse" aria-expanded="false"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div><div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_3" aria-expanded="false"> Collapsible Group Item #3 </a> </h4> </div><div id="collapse_3" class="panel-collapse collapse" aria-expanded="false"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div></div>');
+		$activeElement.html('<h3 class="no-mg-t mg-b-lg">Definition <div class="btn btn-default pull-right">Save</div></h3><!--Accordion - start--> <div class="panel-group mg-b-20" id="accordion_2"> <div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_5" aria-expanded="false"> Collapsible Group Item #5 </a> </h4> </div><div id="collapse_5" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div><div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_2" aria-expanded="false"> Collapsible Group Item #2 </a> </h4> </div><div id="collapse_2" class="panel-collapse collapse" aria-expanded="false"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div><div class="panel panel-default"> <div class="panel-heading grayBg"> <h4 class="panel-title"> <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion_2" href="#collapse_3" aria-expanded="false"> Collapsible Group Item #3 </a> </h4> </div><div id="collapse_3" class="panel-collapse collapse" aria-expanded="false"> <div class="panel-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven\'t heard of them accusamus labore sustainable VHS. </div></div></div></div>');
 		checkHeight();
 	});
 
